@@ -89,4 +89,15 @@ public class UsuarioController {
     public void eliminarUsuario(@PathVariable Long id) {
         service.eliminar(id);
     }
+
+    @Operation(summary = "Recuperar contraseña mediante respuesta de seguridad")
+    @PostMapping("/recuperar")
+    public String recuperarPassword(@RequestParam String email, @RequestParam String respuesta, @RequestParam String nuevaPassword) {
+        boolean exito = service.recuperarPassword(email, respuesta, nuevaPassword);
+        if (exito) {
+            return "Contraseña actualizada correctamente.";
+        } else {
+            return "Error: Email o respuesta de seguridad incorrectos.";
+        }
+    }
 }

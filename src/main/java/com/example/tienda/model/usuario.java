@@ -33,6 +33,14 @@ public class usuario  {
     @Column(nullable = false)
     private String password;
 
+    @Size(max = 255)
+    @Column(name = "pregunta_seguridad")
+    private String preguntaSeguridad;
+
+    @Size(max = 255)
+    @Column(name = "respuesta_seguridad")
+    private String respuestaSeguridad;
+
     @OneToMany(mappedBy = "usuario")
     @JsonManagedReference(value = "usuario-quejas")
     private List<Queja> quejas;
@@ -48,15 +56,14 @@ public class usuario  {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setPassword(String password) { this.password = password; }
+     public void setPassword(String password) { this.password = password; }
+    public String getPassword() { return password; }
 
+    public String getPreguntaSeguridad() { return preguntaSeguridad; }
+    public void setPreguntaSeguridad(String preguntaSeguridad) { this.preguntaSeguridad = preguntaSeguridad; }
 
-
-
-
-
-
-
+    public String getRespuestaSeguridad() { return respuestaSeguridad; }
+    public void setRespuestaSeguridad(String respuestaSeguridad) { this.respuestaSeguridad = respuestaSeguridad; }
 
     public List<Queja> getQuejas() { return quejas; }
     public void setQuejas(List<Queja> quejas) { this.quejas = quejas; }

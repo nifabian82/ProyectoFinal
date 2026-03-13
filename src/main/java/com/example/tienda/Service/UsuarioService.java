@@ -31,6 +31,20 @@ public class UsuarioService {  private final UsuarioRepository repository;
         repository.deleteById(id);
     }
 
+    public usuario buscarPorEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
+    }
+
+    public boolean recuperarPassword(String email, String respuesta, String nuevaPassword) {
+        usuario usu = buscarPorEmail(email);
+        if (usu != null && usu.getRespuestaSeguridad() != null && usu.getRespuestaSeguridad().equals(respuesta)) {
+            usu.setPassword(nuevaPassword); // En producción, usar BCrypt
+            repository.save(usu);
+            return true;
+        }
+        return false;
+    }
+
     public usuario actualizar(Long id, UsuarioCreatedDTO datos) {
         usuario rep = obtenerPorId(id);
         rep.setNombre(datos.getNombre());
